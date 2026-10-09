@@ -597,7 +597,7 @@ function scrLessons() {
 
   paint(
     '<div id="bn"></div>' +
-    '<button class="cover" data-nav="#/home">' +
+    '<button class="cover" data-lv="' + lv.id + '" data-nav="#/home">' +
       '<img src="app/covers/' + lv.id + '.jpg" alt="" loading="lazy">' +
       '<img class="brand" src="' + ((window.BRAND || {}).logoWhite || '') + '" alt="">' +
       '<span class="code">' + lv.code + '</span>' +

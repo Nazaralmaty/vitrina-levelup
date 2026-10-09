@@ -2,8 +2,8 @@
    при клонировании витрины: имя, ссылки, тизер, тексты. Грузится ПЕРВЫМ. */
 window.BRAND = {
   name: "Level Up",
-  logo: "assets/brand-logo.svg",
-  logoWhite: "assets/brand-logo-white.svg",
+  logo: "assets/brand-logo.png",
+  logoWhite: "assets/brand-logo-white.png",
   whatsapp: "77073901201",   /* digits for wa.me; empty = Instagram only */
   instagram: "https://www.instagram.com/levelup.kz/",
   waText: "Здравствуйте! Посмотрел демо платформы для Level Up, хочу такую же.",

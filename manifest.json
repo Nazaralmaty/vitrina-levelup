@@ -8,8 +8,8 @@
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#F5F4F0",
-  "theme_color": "#0B7FA8",
+  "theme_color": "#1480D6",
   "icons": [
-    { "src": "assets/brand-logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+    { "src": "assets/brand-logo.png", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
   ]
 }

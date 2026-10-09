@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>Level Up · Flappy English</title>
+<script src="../app/games-theme.js"></script>
 <script src="../assets/app.js"></script>
 <script src="../app/course.js"></script>
 <script src="../app/words_bridge.js"></script>
@@ -64,6 +65,7 @@
         border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:5px 10px;margin:3px;font-size:12.5px}
   .chip b{color:var(--lime)}
 </style>
+<link rel="stylesheet" href="../app/games-theme.css">
 </head>
 <body>
 
@@ -535,6 +537,8 @@ var Game=(function(){
     ctx.fillStyle='#0b1330'; ctx.textAlign='center'; ctx.textBaseline='middle';
     lines.forEach(function(l,i){ ctx.fillText(l,cx,cy+(i-(lines.length-1)/2)*lh); });
   }
+  /* палитра канваса: тема лида кладёт window.GAME_THEME, иначе исходные цвета */
+  var GT=Object.assign({sky:['#22326f','#131e47','#0a1330'],pipe:['#5a47e0','#3a2bbf'],pipeBad:['#7a3a6a','#5a2a4f'],banner:'rgba(7,11,30,.72)'},window.GAME_THEME||{});
   function draw(){
     /* на карте канвас целиком закрыт DOM-оверлеем — кадр рисовать незачем */
     if(state==='map') return;
@@ -543,7 +547,7 @@ var Game=(function(){
     if(shake>0) ctx.translate((Math.random()-0.5)*shake*H*0.022,(Math.random()-0.5)*shake*H*0.022);
 
     var g=ctx.createLinearGradient(0,0,0,H);
-    g.addColorStop(0,'#22326f'); g.addColorStop(0.6,'#131e47'); g.addColorStop(1,'#0a1330');
+    g.addColorStop(0,GT.sky[0]); g.addColorStop(0.6,GT.sky[1]); g.addColorStop(1,GT.sky[2]);
     ctx.fillStyle=g; ctx.fillRect(-20,-20,W+40,H+40);
     ctx.fillStyle='rgba(255,255,255,.10)';
     for(var s2=0;s2<16;s2++) ctx.fillRect((s2*61+scroll*0.3+W)%W,(s2*43)%(H*0.7)+10,2,2);
@@ -553,8 +557,8 @@ var Game=(function(){
       for(var k=0;k<obs.length;k++){
         var o=obs[k];
         var grd=ctx.createLinearGradient(o.x,0,o.x+obW,0);
-        grd.addColorStop(0,o.crashed?'#7a3a6a':'#5a47e0');
-        grd.addColorStop(1,o.crashed?'#5a2a4f':'#3a2bbf');
+        grd.addColorStop(0,o.crashed?GT.pipeBad[0]:GT.pipe[0]);
+        grd.addColorStop(1,o.crashed?GT.pipeBad[1]:GT.pipe[1]);
         ctx.fillStyle=grd;
         rr(o.x,bannerH,obW,upT-bannerH,9); ctx.fill();
         rr(o.x,upB,obW,lowT-upB,9); ctx.fill();
@@ -565,7 +569,7 @@ var Game=(function(){
       /* верхняя плашка: какое слово переводим прямо сейчас */
       var nxt=null;
       for(var n2=0;n2<obs.length;n2++) if(obs[n2].x+obW>birdX){ nxt=obs[n2]; break; }
-      ctx.fillStyle='rgba(7,11,30,.72)'; ctx.fillRect(0,0,W,bannerH);
+      ctx.fillStyle=GT.banner; ctx.fillRect(0,0,W,bannerH);
       if(nxt){
         /* «take a photo» длиннее «cat» втрое — шрифт ужимается под ширину,
            иначе слово уезжает под кнопки HUD */

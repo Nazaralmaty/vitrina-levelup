@@ -1,0 +1,34 @@
+/* Level Up · игры: тот же язык, что в приложении. body-префикс нужен: arena_kit.js вставляет свои
+   стили уже после загрузки страницы и иначе перебивает этот файл. */
+:root{--ink:#0B2A4A;--ink2:#0F5FA6;--violet:#1480D6;--violet2:#43B8FF;--cyan:#43B8FF;--lime:#FFD21F;
+  --gold:#FFD21F;--red:#F0476B;--ak-bg:#1480D6;--ak-accent:#FFD21F;--ak-dim:#D8EEFF}
+body{background:#CFE9FB}
+body #wrap{background:#2FA5F2;box-shadow:0 0 0 1px rgba(20,128,214,.2),0 30px 80px rgba(20,128,214,.3)}
+body .btn{background:linear-gradient(180deg,#FFE766,#FFD21F);color:#0B2A4A;box-shadow:0 6px 0 #D9A900,0 12px 26px rgba(10,60,120,.3)}
+body .btn:active{box-shadow:0 3px 0 #D9A900}
+body .btn.ghost{background:rgba(255,255,255,.22);color:#fff;border:2px solid rgba(255,255,255,.7);box-shadow:none}
+body .pill,body .ibtn{background:rgba(8,52,102,.55);border-color:rgba(255,255,255,.5)}
+body .screen{background:rgba(10,70,130,.72)}
+body .card{background:linear-gradient(170deg,#43B8FF,#1480D6);border:4px solid #fff;
+  box-shadow:0 8px 0 rgba(10,70,130,.35),0 26px 50px rgba(8,52,102,.4)}
+body .card p,body .stat,body .hint{color:#EAF6FF}
+body .chip{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.5)}
+body .chip b{color:#FFE766}
+/* карта узлов (arena_kit) */
+body .ak-top,body .ak-map,body .ak-root{background:var(--ak-bg)}
+body .ak-node.done i{background:linear-gradient(180deg,#fff,#D8EEFF);box-shadow:0 5px 0 #86C4F0;color:#0B2A4A}
+body .ak-node.lock i{background:linear-gradient(180deg,#8FCBF2,#5BA8DE);box-shadow:0 5px 0 #3C86BE;color:#EAF6FF}
+body .ak-node b{color:#FFE766}
+body .ak-card{background:linear-gradient(170deg,#43B8FF,#1480D6);border:4px solid #fff}
+body .ak-sub2,body .ak-hint,body .ak-top .ak-sub{color:#EAF6FF}
+/* порядок слов и сортировка */
+body{--g1:#1480D6}
+.g{position:relative}
+body:has(.g){background:linear-gradient(165deg,#1480D6,#43B8FF)}
+body .hud .pill{background:rgba(255,255,255,.22)}
+body .line{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.7)}
+body .t{background:#fff;color:#0B2A4A;box-shadow:0 4px 0 rgba(10,70,130,.3)}
+body .btn2{background:rgba(255,255,255,.22)}
+body .btn2.main{background:#FFD21F;color:#0B2A4A;box-shadow:0 4px 0 #D9A900}
+body .b{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.65)}
+body .combo{color:#FFE766}

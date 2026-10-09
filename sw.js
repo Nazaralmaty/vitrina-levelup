@@ -19,7 +19,7 @@
  * версия чинится обычным push, а не просьбой «почистите браузер».
  */
 /* Имя кэша со slug: все демо на одном origin, чужой кэш трогать нельзя. */
-var PREFIX = 'vitrina-levelup2-';
+var PREFIX = 'vitrina-levelup-';
 var VERSION = PREFIX + '2026-10-10';
 
 /* Что имеет смысл положить заранее: без этого набора приложение не
@@ -35,7 +35,7 @@ var SHELL = [
   './app/course.js',
   './app/vitrina.js',
   './app/words_bridge.js',
-  './assets/brand-logo.svg',
+  './assets/brand-logo.png',
   './assets/brand-logo-white.svg',
   './assets/teaser-poster.jpg'
 ];
