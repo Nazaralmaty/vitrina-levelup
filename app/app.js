@@ -181,7 +181,7 @@ var LANG = {
     gPlays:function (n) { return 'Сыграно ' + n; },
     gBest:function (n) { return 'лучший счёт ' + n; },
     gWordOrder:'Порядок слов', gWordOrderNote:'Собрать предложение из слов',
-    gSort:'Сортировка', gSortNote:'Разложить слова по группам',
+    gSort:'Корзины', gSortNote:'Ловить слова в нужную корзину',
     gFlappyNote:'Лететь в тот проём, где верный перевод',
     profile:'Профиль', name:'Имя', notSetM:'Не указан',
     notSetN:'Не указано', gender:'Пол',
@@ -245,7 +245,7 @@ var LANG = {
     gPlays:function (n) { return n + ' ойын ойналды'; },
     gBest:function (n) { return 'үздік нәтиже ' + n; },
     gWordOrder:'Сөз реті', gWordOrderNote:'Сөздерден сөйлем құрастыру',
-    gSort:'Сұрыптау', gSortNote:'Сөздерді топтарға бөлу',
+    gSort:'Себеттер', gSortNote:'Сөздерді дұрыс себетке түсіру',
     gFlappyNote:'Дұрыс аудармасы бар саңылауға ұшу',
     profile:'Профиль', name:'Аты', notSetM:'Көрсетілмеген',
     notSetN:'Көрсетілмеген', gender:'Жынысы',
@@ -917,9 +917,8 @@ function scrWords(id) {
    ══════════════════════════════════════════════════════════════════ */
 function games() {
   return [
-    { file: 'flappy.html',  id: 'flappy_english', name: 'Flappy English', note: t('gFlappyNote') },
-    { file: 'soilem.html',  id: 'soilem',         name: t('gWordOrder'),  note: t('gWordOrderNote') },
-    { file: 'surypta.html', id: 'surypta',        name: t('gSort'),       note: t('gSortNote') }
+    { file: 'surypta.html', id: 'surypta',        name: t('gSort'),       note: t('gSortNote') },
+    { file: 'soilem.html',  id: 'soilem',         name: t('gWordOrder'),  note: t('gWordOrderNote') }
   ];
 }
 
@@ -945,7 +944,20 @@ function scrGames() {
             esc(gameLine(g.id, g.note)) + '</span></span>' +
           '<span class="chev">' + icon('right', 20) + '</span></a>';
       }).join('') +
+    '</div>' +
+    /* витрина: две игры показываем, остальное — продажа игры под школу */
+    '<div class="upsell-card" style="margin-top:14px">' +
+      '<div class="kick">' + t('gamesTab') + '</div>' +
+      '<h3>' + esc(bt('gamesUpTitle')) + '</h3>' +
+      '<p>' + esc(bt('gamesUpSub')) + '</p>' +
+      '<a class="btn" style="display:block;text-align:center;text-decoration:none" href="' + waLink() + '" target="_blank" rel="noopener">' +
+        esc(bt('wantSame')) + '</a>' +
     '</div>');
+}
+
+function waLink() {
+  var B = window.BRAND || {};
+  return B.whatsapp ? 'https://wa.me/' + B.whatsapp + '?text=' + encodeURIComponent(B.waText || '') : B.instagram;
 }
 
 
