@@ -15,7 +15,9 @@
    СОСТОЯНИЕ
    ══════════════════════════════════════════════════════════════════ */
 /* Витрина: бэкенда нет, состояние только в localStorage этого телефона. */
-var KEY = 'vitrina.lead';
+/* Ключ по имени репозитория: на github.io все демо живут на одном origin,
+   общий ключ смешал бы прогресс двух школ на одном телефоне. */
+var KEY = 'vitrina.' + (location.pathname.split('/')[1] || 'lead');
 
 function blank() {
   return {
@@ -456,15 +458,24 @@ function pickSheet(title, items, current, onPick) {
    ══════════════════════════════════════════════════════════════════ */
 function scrLogin() {
   var B = window.BRAND || {};
+  var nl = 0; try { COURSE.levels.forEach(function (l) { nl += l.lessons.length; }); } catch (e) {}
+  var nw = (window.WORDS || []).length || (window.WORD_BANK || []).length || 0;
   paint(
     '<div class="start">' +
-      '<span class="demo-tag">Демо-витрина</span>' +
-      '<img class="logo-badge" src="' + B.logo + '" alt="' + esc(B.name || '') + '">' +
-      '<h1 style="margin-bottom:8px">' + esc(B.name || '') + '</h1>' +
-      '<p class="sub" style="margin-bottom:6px">' + esc(bt('startSub')) + '</p>' +
+      '<span class="demo-tag">' + esc(bt('startKicker')) + '</span>' +
+      '<div class="start-head"><img class="logo-badge" src="' + B.logo + '" alt="' + esc(B.name || '') + '">' +
+        '<h1>' + esc(B.name || '') + '</h1></div>' +
+      '<p class="sub" style="margin-bottom:14px">' + esc(bt('startSub')) + '</p>' +
+      (B.video
+        ? '<div class="frame start-video"><video src="assets/teaser.mp4" poster="assets/teaser-poster.jpg" ' +
+          'autoplay muted loop playsinline controls preload="auto"></video></div>' : '') +
+      '<div class="chips-row">' +
+        (nl ? '<span>' + esc(bt('chipLessons').replace('{n}', nl)) + '</span>' : '') +
+        '<span>' + esc(bt('chipGames')) + '</span>' +
+        '<span>' + esc(bt('chipCartoons')) + '</span>' +
+      '</div>' +
       '<label class="agree"><input type="checkbox" id="ag">' +
         '<span>' + esc(bt('consentShort')) + '. <b id="more">' + t('consentLink') + '</b></span></label>' +
-      '<div class="gap-lg"></div>' +
       '<button class="btn" id="go" disabled>' + esc(bt('startCta')) + '</button>' +
     '</div>', true);
 
@@ -678,7 +689,9 @@ function teaserCard() {
 }
 function player(s, yt, cap) {
   return '<div class="vcap">' + cap + '</div>' +
-    (yt
+    (yt === 'local'
+      ? '<div class="frame"><video src="assets/teaser.mp4" poster="assets/teaser-poster.jpg" controls playsinline preload="metadata"></video></div>'
+      : yt
       ? '<div class="frame"><iframe src="https://www.youtube-nocookie.com/embed/' + yt +
         '?rel=0&modestbranding=1&playsinline=1" title="' + esc((s.title || (t('lesson') + ' ' + s.n)) + ' · ' + cap) + '" allowfullscreen ' +
         'allow="accelerometer; encrypted-media; picture-in-picture"></iframe></div>'

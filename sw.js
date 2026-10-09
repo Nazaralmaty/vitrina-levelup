@@ -18,7 +18,9 @@
  * Активация сносит все чужие версии и сразу берёт управление: сломанная
  * версия чинится обычным push, а не просьбой «почистите браузер».
  */
-var VERSION = 'vitrina-2026-10-09a';
+/* Имя кэша со slug: все демо на одном origin, чужой кэш трогать нельзя. */
+var PREFIX = 'vitrina-levelup2-';
+var VERSION = PREFIX + '2026-10-10';
 
 /* Что имеет смысл положить заранее: без этого набора приложение не
    нарисует ни одного экрана. */
@@ -31,9 +33,11 @@ var SHELL = [
   './app/brand.css',
   './app/app.js',
   './app/course.js',
+  './app/vitrina.js',
   './app/words_bridge.js',
   './assets/brand-logo.svg',
-  './assets/brand-logo-white.svg'
+  './assets/brand-logo-white.svg',
+  './assets/teaser-poster.jpg'
 ];
 
 self.addEventListener('install', function (e) {
@@ -51,7 +55,7 @@ self.addEventListener('activate', function (e) {
   e.waitUntil(
     caches.keys().then(function (keys) {
       return Promise.all(keys.map(function (k) {
-        return k === VERSION ? null : caches.delete(k);
+        return (k === VERSION || k.indexOf(PREFIX) !== 0) ? null : caches.delete(k);
       }));
     }).then(function () { return self.clients.claim(); })
   );

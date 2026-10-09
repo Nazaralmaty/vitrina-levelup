@@ -17,7 +17,7 @@
 (function (global) {
   'use strict';
 
-  var KEY = 'vitrina.lead';
+  var KEY = 'vitrina.' + (location.pathname.split('/')[1] || 'lead');
   var qs = new URLSearchParams(location.search);
   var unit = qs.get('u') || '';
   var back = qs.get('back') || '../index.html#/games';

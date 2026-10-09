@@ -46,7 +46,7 @@
   /* Уровень и язык ученика. Уровня нет (открыли игру напрямую) — берём
      весь курс, пустая арена хуже чужих слов. */
   var st = {};
-  try { st = JSON.parse(localStorage.getItem('vitrina.lead')) || {}; } catch (e) {}
+  try { st = JSON.parse(localStorage.getItem('vitrina.' + (location.pathname.split('/')[1] || 'lead'))) || {}; } catch (e) {}
   var lv = st.level || null, lang = st.lang || 'kk';
 
   function tr(w) { return (lang === 'kk' && w.kk) ? w.kk : (w.ru || w.kk || ''); }

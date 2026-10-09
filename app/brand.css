@@ -1,18 +1,27 @@
-/* Витрина · бренд Level Up. Единственный CSS под лида: три токена и новые
-   классы витрины. style.css не трогать. */
+/* Витрина · бренд школы. Единственный CSS под лида: ОДИН токен --brand,
+   всё остальное считается от него. style.css не трогать. */
 :root{
-  --navy:#0B7FA8;          /* Level Up синий: кнопки и заголовки */
+  --brand:#0B7FA8;
+  --navy:var(--brand);
   --on-navy:#FFFFFF;
-  --sh-1:0 1px 2px rgba(11,127,168,.08), 0 6px 18px rgba(11,127,168,.09);
-  --sh-2:0 2px 4px rgba(11,127,168,.10), 0 16px 34px rgba(11,127,168,.14);
+  --navy-deep:color-mix(in srgb,var(--brand) 62%,#050b14);
+  --tint:color-mix(in srgb,var(--brand) 12%,#fff);
+  --sh-1:0 1px 2px color-mix(in srgb,var(--brand) 10%,transparent), 0 6px 18px color-mix(in srgb,var(--brand) 11%,transparent);
+  --sh-2:0 2px 4px color-mix(in srgb,var(--brand) 12%,transparent), 0 16px 34px color-mix(in srgb,var(--brand) 16%,transparent);
 }
 
+/* Обложки FLUX красные: гоним в тон школы. Картинка даёт свет и тень,
+   цвет даёт фон под ней (blend luminosity). */
+.hero,.cover,.ccard .pic{background:var(--navy-deep)}
+.hero img:not(.brand),.cover img:not(.brand),.ccard .pic img{mix-blend-mode:luminosity;opacity:.5}
+.hero::after,.cover::after,.ccard .pic::after{
+  background:linear-gradient(180deg,color-mix(in srgb,var(--navy-deep) 55%,transparent) 0%,color-mix(in srgb,var(--navy-deep) 30%,transparent) 45%,color-mix(in srgb,var(--navy-deep) 85%,transparent) 100%)}
+.cover .code,.ccard .pic .code{background:rgba(255,255,255,.18)}
+.ccard .pic i,.cover p{color:color-mix(in srgb,var(--brand) 35%,#fff)}
+
 /* Стартовый экран */
-.start{display:flex;flex-direction:column;min-height:70vh;justify-content:center}
-.start .logo-badge{width:84px;height:84px;border-radius:24px;margin-bottom:20px;
-  box-shadow:var(--sh-2)}
 .demo-tag{align-self:flex-start;font-size:12px;font-weight:800;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--navy);background:#E3F4FA;border-radius:999px;
+  text-transform:uppercase;color:var(--navy);background:var(--tint);border-radius:999px;
   padding:5px 12px;margin-bottom:14px}
 .agree{display:flex;gap:10px;align-items:flex-start;margin:16px 0 4px;font-size:14px;
   color:var(--muted)}
@@ -36,10 +45,21 @@
 .upsell-card h3{font-size:19px;margin-bottom:8px}
 .upsell-card p{font-size:14.5px;color:var(--muted);line-height:1.55;margin-bottom:16px}
 
-/* Плавающие кнопки связи */
-.cta-float{position:fixed;right:14px;bottom:calc(66px + 14px + env(safe-area-inset-bottom));
-  display:flex;flex-direction:column;gap:10px;z-index:50}
-.cta-float a{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;
-  justify-content:center;box-shadow:var(--sh-2);background:var(--navy);color:#fff}
-.cta-float a.ig{background:#fff;color:var(--navy);border:1px solid var(--line)}
-.cta-float svg{width:26px;height:26px}
+/* Старт: лого рядом с именем, видео сразу под текстом */
+.start{min-height:auto;padding-top:8px}
+.start-head{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.start .logo-badge{width:64px;height:64px;border-radius:18px;margin:0;flex:none}
+.start-head h1{margin:0}
+.start-video{margin-bottom:12px}
+.chips-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.chips-row span{font-size:13px;font-weight:700;color:var(--navy);background:var(--tint);
+  border-radius:999px;padding:6px 12px}
+
+/* Одна кнопка связи: пилюля над таб-баром, не перекрывает шеврон карточек */
+.cta-float{position:fixed;left:50%;transform:translateX(-50%);
+  bottom:calc(66px + 12px + env(safe-area-inset-bottom));z-index:50}
+.cta-float a{display:flex;align-items:center;gap:8px;height:44px;padding:0 18px;border-radius:999px;
+  background:var(--navy);color:#fff;font-weight:800;font-size:14px;text-decoration:none;
+  box-shadow:var(--sh-2);white-space:nowrap}
+.cta-float svg{width:20px;height:20px}
+body:has(.tabs.off) .cta-float{display:none}

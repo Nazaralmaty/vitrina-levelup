@@ -1,6 +1,6 @@
 {
   "name": "Level Up · платформа",
-  "short_name": "LevelUp",
+  "short_name": "Level Up",
   "description": "Видеоуроки, задания и словарь между занятиями.",
   "lang": "ru",
   "start_url": "./index.html",

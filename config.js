@@ -1,16 +1,21 @@
 /* Витрина платформы · конфиг под лида. Единственный файл, который правится
    при клонировании витрины: имя, ссылки, тизер, тексты. Грузится ПЕРВЫМ. */
 window.BRAND = {
-  name: 'Level Up',
-  logo: 'assets/brand-logo.svg',
-  logoWhite: 'assets/brand-logo-white.svg',
-  whatsapp: '77073901201',
-  instagram: 'https://www.instagram.com/levelup.kz/',
-  waText: 'Здравствуйте! Посмотрел демо платформы, хочу такую же для своей школы.',
-  teaser: '',   /* YouTube id 30-сек тизера; пусто — карточка-заглушка */
+  name: "Level Up",
+  logo: "assets/brand-logo.svg",
+  logoWhite: "assets/brand-logo-white.svg",
+  whatsapp: "77073901201",   /* digits for wa.me; empty = Instagram only */
+  instagram: "https://www.instagram.com/levelup.kz/",
+  waText: "Здравствуйте! Посмотрел демо платформы для Level Up, хочу такую же.",
+  video: true,   /* assets/teaser.mp4 — 34 s Forest English cut, ships with the template */
+  teaser: '',    /* optional YouTube id; overrides nothing while video is true */
   texts: {
     ru: {
-      startSub: 'Видеоуроки, задания, словарь и игры — как будет выглядеть платформа вашей школы.',
+      startKicker: 'Демо-платформа',
+      chipLessons: '{n} уроков',
+      chipGames: '3 игры',
+      chipCartoons: 'мультики',
+      startSub: 'Так выглядит платформа для {name}: видеоуроки, задания, словарь и игры.',
       startCta: 'Смотреть демо',
       consentShort: 'Согласен, что прогресс хранится на этом телефоне',
       consentText: 'Это демо: аккаунта нет, в интернет не уходит ничего. Пройденные уроки лежат в браузере этого телефона и стираются кнопкой «Удалить мои данные» в профиле.',
@@ -22,7 +27,11 @@ window.BRAND = {
       wantSame: 'Хочу так же'
     },
     kk: {
-      startSub: 'Видеосабақ, тапсырма, сөздік және ойындар — сіздің мектебіңіздің платформасы осындай болады.',
+      startKicker: 'Демо-платформа',
+      chipLessons: '{n} сабақ',
+      chipGames: '3 ойын',
+      chipCartoons: 'мультфильмдер',
+      startSub: '{name} үшін платформа осылай көрінеді: видеосабақ, тапсырма, сөздік және ойындар.',
       startCta: 'Демоны көру',
       consentShort: 'Прогресс осы телефонда сақталатынына келісемін',
       consentText: 'Бұл демо: аккаунт жоқ, интернетке ештеңе жіберілмейді. Өткен сабақтар осы телефонның браузерінде сақталады, профильдегі «Менің деректерімді өшіру» батырмасы бәрін өшіреді.',
@@ -37,14 +46,7 @@ window.BRAND = {
 };
 window.bt = function (k) {
   var l = 'ru';
-  try { l = (JSON.parse(localStorage.getItem('vitrina.lead')) || {}).lang || 'ru'; } catch (e) {}
-  return (window.BRAND.texts[l] && window.BRAND.texts[l][k]) || window.BRAND.texts.ru[k];
+  try { l = (JSON.parse(localStorage.getItem('vitrina.' + (location.pathname.split('/')[1] || 'lead'))) || {}).lang || 'ru'; } catch (e) {}
+  var v = (window.BRAND.texts[l] && window.BRAND.texts[l][k]) || window.BRAND.texts.ru[k];
+  return String(v).replace('{name}', window.BRAND.name);
 };
-/* Все 56 уроков смотрят один тизер. Пустой teaser — шаги видео остаются,
-   плеер рисует карточку-заглушку. */
-(function () {
-  var T = window.BRAND.teaser || '';
-  Object.keys(window.VIDEOS || {}).forEach(function (k) { window.VIDEOS[k] = [T, T]; });
-  Object.keys(window.VIDEOS_RU || {}).forEach(function (k) { window.VIDEOS_RU[k] = [T, T]; });
-  window.CARTOONS = {};
-})();
