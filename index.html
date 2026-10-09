@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#1480D6">
 <meta name="description" content="Level Up · платформа между занятиями: видеоуроки, задания, словарь и игры.">
 <title>Level Up · платформа</title>
-<link rel="icon" href="assets/brand-logo.svg" type="image/svg+xml">
+<link rel="icon" href="assets/brand-logo.png">
 <link rel="manifest" href="manifest.json">
 <link rel="stylesheet" href="app/style.css">
 <link rel="stylesheet" href="app/brand.css">
@@ -26,15 +26,14 @@
   <script src="app/words_bridge.js"></script>
   <script src="app/app.js"></script>
   <script>
-    /* Кнопка связи из конфига: WhatsApp с готовым текстом, иначе Instagram. */
-    (function () {
-      var B = window.BRAND || {};
-      var a = document.getElementById('cta-link');
+    /* Кнопка связи: подпись и ссылка пересчитываются при смене языка (route() зовёт syncCta). */
+    window.syncCta = function () {
+      var a = document.getElementById('cta-link'), B = window.BRAND || {};
+      if (!a) return;
       document.getElementById('cta-label').textContent = bt('wantSame');
-      if (B.whatsapp) a.href = 'https://wa.me/' + B.whatsapp + '?text=' + encodeURIComponent(B.waText || '');
-      else if (B.instagram) a.href = B.instagram;
-      else document.getElementById('cta').style.display = 'none';
-    })();
+      if (B.whatsapp || B.instagram) a.href = waHref(); else document.getElementById('cta').style.display = 'none';
+    };
+    syncCta();
     var secure = location.protocol === 'https:' ||
                  location.hostname === 'localhost' || location.hostname === '127.0.0.1';
     if ('serviceWorker' in navigator && secure) {

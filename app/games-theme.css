@@ -7,3 +7,8 @@ body .btn2{background:rgba(255,255,255,.22)}
 body .btn2.main{background:#FFD21F;color:#0B2A4A;box-shadow:0 4px 0 #D9A900}
 body .b{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.65)}
 body .combo{color:#FFE766}
+/* декор: жёлтая волна и блики за игрой */
+body:has(.g)::before{content:'';position:fixed;left:0;right:0;bottom:150px;height:34px;opacity:.9;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='34' viewBox='0 0 90 34'%3E%3Cpath d='M0 17 q22 -26 45 0 t45 0' fill='none' stroke='%23FFD21F' stroke-width='9' stroke-linecap='round'/%3E%3C/svg%3E") repeat-x}
+body:has(.g)::after{content:'';position:fixed;right:22px;top:92px;width:46px;height:46px;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 46 46'%3E%3Cpath d='M23 2 Q23 23 44 23 Q23 23 23 44 Q23 23 2 23 Q23 23 23 2Z' fill='white'/%3E%3C/svg%3E") no-repeat;opacity:.85}

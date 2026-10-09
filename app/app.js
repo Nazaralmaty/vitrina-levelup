@@ -463,7 +463,7 @@ function scrLogin() {
   paint(
     '<div class="start">' +
       '<span class="demo-tag">' + esc(bt('startKicker')) + '</span>' +
-      '<div class="start-head"><img class="logo-badge" src="' + B.logo + '" alt="' + esc(B.name || '') + '">' +
+      '<div class="start-head"><img class="logo-badge" src="' + av(B.logo) + '" alt="' + esc(B.name || '') + '">' +
         '<h1>' + esc(B.name || '') + '</h1></div>' +
       '<p class="sub" style="margin-bottom:14px">' + esc(bt('startSub')) + '</p>' +
       (B.video
@@ -509,7 +509,7 @@ function courseCard(l, mine) {
   var st = levelStats(l);
   return '<button class="ccard' + (mine ? ' mine' : '') + '" data-lv="' + l.id + '">' +
     '<span class="pic">' +
-      '<img src="app/covers/' + l.id + '.jpg" alt="" loading="lazy">' +
+      '<img src="' + av('app/covers/' + l.id + '.jpg') + '" alt="" loading="lazy">' +
       '<span class="code">' + l.code + '</span>' +
       '<b' + (l.title.length > 12 ? ' class="long"' : '') + '>' + l.title + '</b>' +
       '<i>' + esc(tx(l, 'tagline')) + '</i>' +
@@ -535,15 +535,15 @@ function scrHome() {
     '<div class="hero">' +
       /* обложка школы, а не курса: под ней сразу лежит карточка курса
          со своей картинкой, и две одинаковые читались бы как сбой */
-      '<img src="app/covers/school.jpg" alt="">' +
-      '<img class="brand" src="' + B.logoWhite + '" alt="' + esc(B.name || '') + '">' +
+      '<img src="' + av('app/covers/school.jpg') + '" alt="">' +
+      '<img class="brand" src="' + av(B.logoWhite) + '" alt="' + esc(B.name || '') + '">' +
       '<div class="lang">' +
         '<button data-l="kk"' + (S.lang === 'kk' ? ' class="on"' : '') + '>KZ</button>' +
         '<button data-l="ru"' + (S.lang === 'ru' ? ' class="on"' : '') + '>RU</button>' +
       '</div>' +
     '</div>' +
 
-    '<div class="ava logo"><img src="' + B.logo + '" alt=""></div>' +
+    '<div class="ava logo"><img src="' + av(B.logo) + '" alt=""></div>' +
     '<div class="who">' +
       '<h2>' + esc(B.name || '') + '</h2>' +
       '<p>' + t('brandLine1') + '<br>' + t('brandLine2') + '</p>' +
@@ -598,8 +598,8 @@ function scrLessons() {
   paint(
     '<div id="bn"></div>' +
     '<button class="cover" data-lv="' + lv.id + '" data-nav="#/home">' +
-      '<img src="app/covers/' + lv.id + '.jpg" alt="" loading="lazy">' +
-      '<img class="brand" src="' + ((window.BRAND || {}).logoWhite || '') + '" alt="">' +
+      '<img src="' + av('app/covers/' + lv.id + '.jpg') + '" alt="" loading="lazy">' +
+      '<img class="brand" src="' + av((window.BRAND || {}).logoWhite) + '" alt="">' +
       '<span class="code">' + lv.code + '</span>' +
       /* длинное название уровня не должно наезжать на предмет справа */
       '<h2' + (lv.title.length > 12 ? ' style="font-size:clamp(20px,6.2vw,28px)"' : '') + '>' + lv.title + '</h2>' +
@@ -678,7 +678,7 @@ function steps(s) {
    которая продаёт видеоуроки. Тизер залили — iframe встанет сам. */
 function teaserCard() {
   var B = window.BRAND || {};
-  var wa = B.whatsapp ? 'https://wa.me/' + B.whatsapp + '?text=' + encodeURIComponent(B.waText || '') : B.instagram;
+  var wa = waHref();
   return '<div class="teaser-card">' +
     '<div class="playring"><svg viewBox="0 0 24 24"><path d="M8 5.6v12.8L19 12z"/></svg></div>' +
     '<h3>' + esc(bt('videoTitle')) + '</h3>' +
@@ -838,7 +838,7 @@ function flipCard(w, form, onFlip) {
 function scrTask(id) {
   var s = lesson(id); if (!s) return go('#/lessons');
   var B = window.BRAND || {};
-  var wa = B.whatsapp ? 'https://wa.me/' + B.whatsapp + '?text=' + encodeURIComponent(B.waText || '') : B.instagram;
+  var wa = waHref();
   if (!prog(id).task) { prog(id).task = { right: 0, total: 0 }; save(); }
   paint(
     head(s.title || (t('lesson') + ' ' + s.n), '#/lessons') +
@@ -950,15 +950,11 @@ function scrGames() {
       '<div class="kick">' + t('gamesTab') + '</div>' +
       '<h3>' + esc(bt('gamesUpTitle')) + '</h3>' +
       '<p>' + esc(bt('gamesUpSub')) + '</p>' +
-      '<a class="btn" style="display:block;text-align:center;text-decoration:none" href="' + waLink() + '" target="_blank" rel="noopener">' +
+      '<a class="btn" style="display:block;text-align:center;text-decoration:none" href="' + waHref() + '" target="_blank" rel="noopener">' +
         esc(bt('wantSame')) + '</a>' +
     '</div>');
 }
 
-function waLink() {
-  var B = window.BRAND || {};
-  return B.whatsapp ? 'https://wa.me/' + B.whatsapp + '?text=' + encodeURIComponent(B.waText || '') : B.instagram;
-}
 
 
 /* Аватар вместо фото. Фото никто не ставит, а пустой кружок с иконкой
@@ -1030,9 +1026,9 @@ function scrProfile() {
 
     '<div class="group">' +
       '<button class="gr" id="rWipe">' +
-        '<span class="ic" style="color:var(--accent)">' + icon('close', 22) + '</span>' +
+        '<span class="ic" style="color:var(--danger,var(--accent))">' + icon('close', 22) + '</span>' +
         '<span class="grow"><span class="lbl">' + t('wipeCap') + '</span>' +
-          '<span class="val" style="color:var(--accent)">' + t('wipe') + '</span></span>' +
+          '<span class="val" style="color:var(--danger,var(--accent))">' + t('wipe') + '</span></span>' +
       '</button>' +
     '</div>' +
 
@@ -1183,6 +1179,7 @@ function drawTabs(active) {
 }
 
 function route() {
+  if (window.syncCta) window.syncCta();   /* подпись и ссылка кнопки связи следуют за языком */
   var parts = (location.hash || '').replace(/^#\/?/, '').split('/').filter(Boolean);
   var r = parts[0] || '';
 

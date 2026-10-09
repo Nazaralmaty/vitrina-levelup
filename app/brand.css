@@ -65,100 +65,141 @@
 body:has(.tabs.off) .cta-float{display:none}
 
 /* Level Up · тема. Снята с их Instagram и сайта: небесно-синий и жёлтый, градиентные поля,
-   жёлтые волны, белые стикеры-дудлы, жирный Golos вместо Cuprum (CDN нельзя), логотип-кружок.
-   Структура экранов общая; здесь меняется всё, что видно. */
-:root,:root:not([data-theme="light"]),:root[data-theme="dark"]{
+   жёлтые волны, белые стикеры-дудлы, Cuprum (их шрифт с сайта, лежит в assets/fonts), логотип-кружок.
+   Структура экранов общая; здесь меняется всё, что видно. Светлая и тёмная темы — обе настоящие. */
+@font-face{font-family:'Cuprum';font-weight:400;font-display:swap;src:url('../assets/fonts/Cuprum-400.ttf') format('truetype')}
+@font-face{font-family:'Cuprum';font-weight:700;font-display:swap;src:url('../assets/fonts/Cuprum-700.ttf') format('truetype')}
+
+:root{
   color-scheme:light;
-  --blue:#1480D6; --sky:#43B8FF; --yellow:#FFD21F; --yellow-d:#D9A900; --cyan:#00DBFC;
+  --sky:#43B8FF; --yellow:#FFD21F; --yellow-d:#D9A900; --cyan:#00DBFC;
   --field:#CFE9FB; --bg:#F2F9FF; --card:#FFFFFF; --ink:#0B2A4A; --muted:#55718F;
-  --faint:#9DB7D1; --line:#D5E7F7; --track:#D5E7F7;
+  --faint:#9DB7D1; --line:#D5E7F7; --track:#D5E7F7; --soft:#E6F3FF; --edge:#FFFFFF;
   --navy:#0F76C9; --on-navy:#FFFFFF; --navy-deep:#0A5FA8;
-  --accent:#F5B800; --accent-soft:#FFF3BF; --ok:#12915B; --ok-soft:#DDF5EA;
+  --danger:#E5385B; --accent:#F5B800; --accent-soft:#FFF3BF; --accent-ink:#8A6300; --ok:#12915B; --ok-soft:#DDF5EA;
   --tab-bg:rgba(255,255,255,.96);
   --r-card:26px; --r-chip:18px;
   --sh-1:0 3px 0 rgba(20,128,214,.10), 0 12px 26px rgba(20,128,214,.10);
   --sh-2:0 4px 0 rgba(20,128,214,.14), 0 18px 38px rgba(20,128,214,.16);
+  --head:'Cuprum','Golos Text',sans-serif;
 }
-body{letter-spacing:-.005em}
-h1,h2{font-weight:900}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --field:#04121F; --bg:#0A2038; --card:#103156; --ink:#EAF6FF; --muted:#9CC0E0;
+    --faint:#5F85A8; --line:#1D4673; --track:#1D4673; --soft:#17406B; --edge:#1D4673;
+    --navy:#5CC3FF; --on-navy:#06192C; --navy-deep:#0A5FA8;
+    --danger:#FF7A93; --accent:#FFD21F; --accent-soft:#3B3410; --accent-ink:#FFE766; --ok:#4BD39A; --ok-soft:#10382C;
+    --tab-bg:rgba(10,32,56,.96);
+    --sh-1:0 3px 0 rgba(0,0,0,.25), 0 12px 26px rgba(0,0,0,.28);
+    --sh-2:0 4px 0 rgba(0,0,0,.3), 0 18px 38px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --field:#04121F; --bg:#0A2038; --card:#103156; --ink:#EAF6FF; --muted:#9CC0E0;
+  --faint:#5F85A8; --line:#1D4673; --track:#1D4673; --soft:#17406B; --edge:#1D4673;
+  --navy:#5CC3FF; --on-navy:#06192C; --navy-deep:#0A5FA8;
+  --danger:#FF7A93; --accent:#FFD21F; --accent-soft:#3B3410; --accent-ink:#FFE766; --ok:#4BD39A; --ok-soft:#10382C;
+  --tab-bg:rgba(10,32,56,.96);
+  --sh-1:0 3px 0 rgba(0,0,0,.25), 0 12px 26px rgba(0,0,0,.28);
+  --sh-2:0 4px 0 rgba(0,0,0,.3), 0 18px 38px rgba(0,0,0,.4);
+}
+body{letter-spacing:0}
+h1,h2,h3,.sect,.btn,.chip,.tab,.code,.demo-tag,.kick,.sgrp,.ccard .pic b,.cover h2,.mark,.pct,.big{font-family:var(--head);-webkit-text-stroke:.5px currentColor}
+h1{font-size:34px;line-height:1.05;font-weight:700;letter-spacing:.01em}
+.head h1,.start-head h1{text-transform:uppercase}
+h2{font-weight:700;letter-spacing:.01em}
 .app{box-shadow:0 0 0 1px rgba(20,128,214,.10),0 30px 80px rgba(20,128,214,.18)}
 
 /* Кнопки: жёлтые с «бортиком», как наклейки */
-.btn{background:var(--yellow);color:var(--ink);font-weight:900;letter-spacing:0;
+.btn{background:var(--yellow);color:#0B2A4A;font-weight:700;font-size:21px;letter-spacing:.02em;text-transform:uppercase;
   box-shadow:0 4px 0 var(--yellow-d),0 12px 22px rgba(217,169,0,.28)}
 .btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--yellow-d)}
 .btn[disabled]{opacity:.5;box-shadow:0 4px 0 var(--yellow-d)}
 .btn.ghost{background:transparent;color:var(--navy);box-shadow:inset 0 0 0 2px var(--line)}
 .btn.quiet{background:var(--card);color:var(--ink);box-shadow:var(--sh-1)}
+.btn.danger{color:#F0476B}
 .dock .btn.ghost{background:var(--card)}
 
-/* Списки, метки, прогресс */
-.mark,.smark{background:#E6F3FF;color:var(--navy)}
-.mark.on{background:var(--navy)}
+/* Списки: номера — круглые «наклейки», карточки с бортом цвета фона */
+.item,.card,.summary,.teaser-card,.upsell-card{border:2px solid var(--edge)}
+.mark{border-radius:50%;background:var(--soft);color:var(--navy);font-family:var(--head);font-size:24px;font-weight:700}
+.smark{border-radius:50%;background:var(--soft);color:var(--navy)}
+.mark.on{background:var(--yellow);color:#0B2A4A}
 .mark.done,.smark.done{background:var(--ok-soft);color:var(--ok)}
-.item{border:2px solid #fff}
-.bar{height:10px}.bar i{background:linear-gradient(90deg,var(--sky),var(--yellow))}
-.steps i{height:6px}.steps i.on{background:var(--yellow)}
-.sgrp{color:var(--navy)}
-.summary .big{color:var(--navy);font-weight:900}
-.ccard .pct{color:var(--navy);font-weight:900}
-.chip{box-shadow:none;background:#E6F3FF}
-.chip.accent{background:var(--accent-soft);color:#8A6300}
-.tab.on{color:var(--navy)}
-.tabs{border-top:3px solid var(--yellow);box-shadow:none}
+.item.on{box-shadow:0 0 0 3px var(--yellow),var(--sh-2)}
+.bar{height:12px}.bar i{background:linear-gradient(90deg,var(--sky),var(--yellow))}
+.steps i{height:7px}.steps i.on{background:var(--yellow)}
+.sgrp{color:var(--navy);font-size:15px;letter-spacing:.08em}
+.summary .big{color:var(--navy);font-family:var(--head);font-size:46px;font-weight:700}
+.ccard .pct{color:var(--navy);font-family:var(--head);font-size:24px;font-weight:700}
+.chip{box-shadow:none;background:var(--soft);color:var(--navy)}
+.chip.accent{background:var(--accent-soft);color:var(--accent-ink)}
+.step b{font-weight:800}
 
-/* Обложки: рисованные сцены на градиенте; без тёмной вуали, текст по цвету поля */
+/* Нижние вкладки: активная — жёлтая таблетка под иконкой */
+.tabs{border-top:3px solid var(--yellow);box-shadow:none}
+.tab{font-family:var(--head);font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.tab svg{width:52px;height:30px;padding:3px 14px;border-radius:999px;box-sizing:border-box;transition:background .2s}
+.tab.on{color:var(--ink)}
+.tab.on svg{background:var(--yellow);color:#0B2A4A}
+
+/* Обложки: рисованные сцены на градиенте; без вуали, текст по цвету поля */
 .hero,.cover,.ccard .pic{background:var(--sky)}
 .hero img:not(.brand),.cover img:not(.brand),.ccard .pic img{mix-blend-mode:normal;opacity:1}
 .hero::after,.cover::after,.ccard .pic::after{background:none}
-.hero .brand{height:46px;top:calc(22px + env(safe-area-inset-top))}
-.hero .lang{background:rgba(255,255,255,.92)}
-.hero .lang button{color:var(--muted)}
-.hero .lang button.on{background:var(--navy);color:#fff}
-.ava.logo{background:var(--cyan);border:5px solid #fff;box-shadow:var(--sh-2)}
-.who h2{font-size:24px;text-transform:uppercase;letter-spacing:-.02em;color:var(--ink)}
-.sect{text-transform:uppercase;letter-spacing:-.01em;font-size:18px;position:relative;padding-bottom:12px}
+.hero .brand{display:none}
+.hero .lang{background:rgba(255,255,255,.94)}
+.hero .lang button{color:#55718F;font-family:var(--head);font-size:15px}
+.hero .lang button.on{background:#0F76C9;color:#fff}
+.ava.logo{background:var(--cyan);border:5px solid var(--bg);box-shadow:var(--sh-2)}
+.who h2{font-size:34px;text-transform:uppercase;letter-spacing:.02em;color:var(--ink)}
+.sect{text-transform:uppercase;letter-spacing:.03em;font-size:26px;position:relative;padding-bottom:14px}
 .sect::after{content:'';position:absolute;left:0;bottom:0;width:64px;height:10px;
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 10'%3E%3Cpath d='M2 6 q8 -8 15 0 t15 0 t15 0 t15 0' fill='none' stroke='%23FFD21F' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat}
-.ccard,.cover{border:3px solid #fff;box-shadow:var(--sh-2)}
-.ccard .code,.cover .code{background:#fff;color:var(--navy);font-weight:900}
-.ccard .pic b,.cover h2{color:#fff;font-weight:900;text-shadow:0 3px 0 rgba(10,95,168,.45)}
-.ccard .pic i,.cover p{color:#fff;font-weight:700}
+.ccard,.cover{border:3px solid var(--edge);box-shadow:var(--sh-2)}
+.ccard .code,.cover .code{background:#fff;color:#0F76C9;font-weight:700;font-size:15px}
+.ccard .pic b,.cover h2{color:#fff;font-family:var(--head);font-weight:700;letter-spacing:.02em;text-shadow:0 3px 0 rgba(10,95,168,.45)}
+.ccard .pic b{font-size:clamp(34px,10.5vw,46px)}
+.ccard .pic b.long{font-size:clamp(28px,8.4vw,38px)}
+.ccard .pic i,.cover p{color:#fff;font-weight:700;font-style:normal}
 .ccard[data-lv="elementary"] .pic b,.cover[data-lv="elementary"] h2,
-.ccard[data-lv="intermediate"] .pic b,.cover[data-lv="intermediate"] h2{color:var(--ink);text-shadow:0 3px 0 rgba(255,255,255,.7)}
+.ccard[data-lv="intermediate"] .pic b,.cover[data-lv="intermediate"] h2{color:#0B2A4A;text-shadow:0 3px 0 rgba(255,255,255,.7)}
 .ccard[data-lv="elementary"] .pic i,.cover[data-lv="elementary"] p,
-.ccard[data-lv="intermediate"] .pic i,.cover[data-lv="intermediate"] p{color:var(--ink)}
+.ccard[data-lv="intermediate"] .pic i,.cover[data-lv="intermediate"] p{color:#0B2A4A}
 .ccard[data-lv="elementary"] .code,.ccard[data-lv="intermediate"] .code,
-.cover[data-lv="elementary"] .code,.cover[data-lv="intermediate"] .code{background:var(--ink);color:#fff}
-.cover .swap{color:var(--ink);opacity:.7}
-.cover .brand{height:40px;opacity:1}
+.cover[data-lv="elementary"] .code,.cover[data-lv="intermediate"] .code{background:#0B2A4A;color:#fff}
+.cover .swap{color:#0B2A4A;opacity:.7}
+.cover .brand{height:44px;opacity:1}
 
 /* Старт: цветное поле как у их постов, видео — наклейка */
 body:has(.start) .app{background:linear-gradient(175deg,#1480D6 0%,#2FA5F2 55%,#43B8FF 100%)}
-.start .btn[disabled]{opacity:1;background:rgba(255,255,255,.28);color:rgba(255,255,255,.9);box-shadow:inset 0 0 0 2px rgba(255,255,255,.55)}
-.view{overflow-x:clip}
-.start{padding-top:6px;position:relative}
+.start{padding-top:6px;position:relative;color-scheme:light}
 .start::before{content:'';position:absolute;right:-24px;top:-6px;width:150px;height:30px;
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 30'%3E%3Cpath d='M4 18 q9 -16 18 0 t18 0 t18 0 t18 0 t18 0 t18 0 t18 0' fill='none' stroke='%23FFD21F' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat}
-.demo-tag{background:var(--yellow);color:var(--ink);font-weight:900;transform:rotate(-3deg);box-shadow:0 3px 0 var(--yellow-d)}
+.demo-tag{background:var(--yellow);color:#0B2A4A;font-weight:700;font-size:14px;transform:rotate(-3deg);box-shadow:0 3px 0 var(--yellow-d)}
 .start-head{margin:6px 0 12px}
 .start .logo-badge{width:72px;height:72px;border-radius:50%;border:4px solid #fff;box-shadow:var(--sh-2)}
-.start-head h1{color:#fff;text-transform:uppercase;font-weight:900;font-size:34px;text-shadow:0 3px 0 rgba(10,95,168,.5)}
+.start-head h1{color:#fff;font-size:44px;text-shadow:0 3px 0 rgba(10,95,168,.5)}
 .start .sub{color:#fff;font-weight:600;text-shadow:0 1px 0 rgba(10,95,168,.35)}
 .start-video{border:5px solid #fff;border-radius:26px;transform:rotate(-1.4deg);box-shadow:0 6px 0 rgba(10,95,168,.25),0 18px 30px rgba(10,60,120,.25)}
-.chips-row span{background:#fff;color:var(--ink);font-weight:900;box-shadow:0 3px 0 rgba(10,95,168,.2)}
+.chips-row span{background:#fff;color:#0B2A4A;font-family:var(--head);font-size:16px;font-weight:700;box-shadow:0 3px 0 rgba(10,95,168,.2)}
 .chips-row span:nth-child(2){transform:rotate(2deg)}
 .chips-row span:nth-child(3){background:var(--yellow);transform:rotate(-2deg)}
 .agree{color:#fff;font-weight:600}.agree b{color:#fff}
 .agree input{accent-color:var(--yellow)}
+.start .btn[disabled]{opacity:1;background:rgba(255,255,255,.28);color:rgba(255,255,255,.9);box-shadow:inset 0 0 0 2px rgba(255,255,255,.55)}
+.view{overflow-x:clip}
+.view:not(.plain){padding-bottom:calc(var(--tab-h) + 84px + env(safe-area-inset-bottom))}
 
 /* Заглушки и карточки продаж */
-.teaser-card,.upsell-card{border:2px solid #fff;background:linear-gradient(180deg,#fff,#F2F9FF)}
+.teaser-card,.upsell-card{background:var(--card)}
 .teaser-card .playring{background:var(--yellow);box-shadow:0 4px 0 var(--yellow-d)}
-.teaser-card .playring svg{fill:var(--ink)}
-.upsell-card .kick{color:var(--navy)}
-.frame{border:4px solid #fff;box-shadow:var(--sh-2)}
+.teaser-card .playring svg{fill:#0B2A4A}
+.upsell-card .kick{color:var(--navy);font-size:15px;letter-spacing:.08em}
+.frame{border:4px solid var(--edge);box-shadow:var(--sh-2)}
 
 /* Одна кнопка связи */
-.cta-float a{background:var(--yellow);color:var(--ink);font-weight:900;
-  box-shadow:0 4px 0 var(--yellow-d),0 12px 24px rgba(10,60,120,.25)}
+.cta-float a{background:var(--yellow);color:#0B2A4A;font-family:var(--head);font-weight:700;font-size:18px;letter-spacing:.03em;
+  text-transform:uppercase;box-shadow:0 4px 0 var(--yellow-d),0 12px 24px rgba(10,60,120,.25)}

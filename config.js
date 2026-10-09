@@ -4,13 +4,14 @@ window.BRAND = {
   name: "Level Up",
   logo: "assets/brand-logo.png",
   logoWhite: "assets/brand-logo-white.png",
-  whatsapp: "77073901201",   /* digits for wa.me; empty = Instagram only */
-  instagram: "https://www.instagram.com/levelup.kz/",
-  waText: "Здравствуйте! Посмотрел демо платформы для Level Up, хочу такую же.",
+  whatsapp: "77085123700",   /* digits for wa.me; empty = Instagram only */
+  instagram: "",
+  build: 1791580729,   /* кэш-версия: меняется при каждой сборке, иначе сервис-воркер отдаёт старые картинки */
   video: true,   /* assets/teaser.mp4 — 34 s Forest English cut, ships with the template */
   teaser: '',    /* optional YouTube id; overrides nothing while video is true */
   texts: {
     ru: {
+      waText: 'Здравствуйте! Я из {name}. Посмотрел демо платформы, хочу такую же для нашей школы.',
       startKicker: 'Демо-платформа',
       chipLessons: '{n} уроков',
       chipGames: '3 игры',
@@ -29,6 +30,7 @@ window.BRAND = {
       wantSame: 'Хочу так же'
     },
     kk: {
+      waText: 'Сәлеметсіз бе! Мен {name} мектебінденмін. Платформаның демосын көрдім, біздің мектепке де осындай керек.',
       startKicker: 'Демо-платформа',
       chipLessons: '{n} сабақ',
       chipGames: '3 ойын',
@@ -53,4 +55,13 @@ window.bt = function (k) {
   try { l = (JSON.parse(localStorage.getItem('vitrina.' + (location.pathname.split('/')[1] || 'lead'))) || {}).lang || 'ru'; } catch (e) {}
   var v = (window.BRAND.texts[l] && window.BRAND.texts[l][k]) || window.BRAND.texts.ru[k];
   return String(v).replace('{name}', window.BRAND.name);
+};
+
+/* Версия ресурса в адресе: картинки в service worker идут «сначала из кэша», без версии
+   новые обложки не доезжают до того, кто уже открывал демо. */
+window.av = function (p) { return p ? p + (p.indexOf('?') < 0 ? '?v=' : '&v=') + (window.BRAND.build || 0) : ''; };
+/* Кнопка «Хочу так же» ведёт к Элжану, не к школе: whatsapp в конфиге — его номер. Текст на языке экрана. */
+window.waHref = function () {
+  var B = window.BRAND;
+  return B.whatsapp ? 'https://wa.me/' + B.whatsapp + '?text=' + encodeURIComponent(bt('waText')) : (B.instagram || '#');
 };
