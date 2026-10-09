@@ -1,0 +1,15 @@
+{
+  "name": "Level Up · платформа",
+  "short_name": "LevelUp",
+  "description": "Видеоуроки, задания и словарь между занятиями.",
+  "lang": "ru",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F5F4F0",
+  "theme_color": "#0B7FA8",
+  "icons": [
+    { "src": "assets/brand-logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

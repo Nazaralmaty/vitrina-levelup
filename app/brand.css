@@ -1,0 +1,45 @@
+/* Витрина · бренд Level Up. Единственный CSS под лида: три токена и новые
+   классы витрины. style.css не трогать. */
+:root{
+  --navy:#0B7FA8;          /* Level Up синий: кнопки и заголовки */
+  --on-navy:#FFFFFF;
+  --sh-1:0 1px 2px rgba(11,127,168,.08), 0 6px 18px rgba(11,127,168,.09);
+  --sh-2:0 2px 4px rgba(11,127,168,.10), 0 16px 34px rgba(11,127,168,.14);
+}
+
+/* Стартовый экран */
+.start{display:flex;flex-direction:column;min-height:70vh;justify-content:center}
+.start .logo-badge{width:84px;height:84px;border-radius:24px;margin-bottom:20px;
+  box-shadow:var(--sh-2)}
+.demo-tag{align-self:flex-start;font-size:12px;font-weight:800;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--navy);background:#E3F4FA;border-radius:999px;
+  padding:5px 12px;margin-bottom:14px}
+.agree{display:flex;gap:10px;align-items:flex-start;margin:16px 0 4px;font-size:14px;
+  color:var(--muted)}
+.agree input{width:20px;height:20px;margin-top:1px;accent-color:var(--navy)}
+.agree b{color:var(--navy);text-decoration:underline;cursor:pointer}
+
+/* Карточка-заглушка вместо видео */
+.teaser-card{background:var(--card);border-radius:var(--r-card);box-shadow:var(--sh-1);
+  padding:26px 20px;margin-bottom:12px;text-align:left}
+.teaser-card .playring{width:58px;height:58px;border-radius:50%;background:var(--navy);
+  display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.teaser-card .playring svg{width:22px;height:22px;fill:#fff;margin-left:3px}
+.teaser-card h3{font-size:19px;margin-bottom:8px}
+.teaser-card p{font-size:14.5px;color:var(--muted);line-height:1.55;margin-bottom:16px}
+
+/* Карточка-заглушка вместо заданий */
+.upsell-card{background:var(--card);border-radius:var(--r-card);box-shadow:var(--sh-1);
+  padding:26px 20px;margin-bottom:12px}
+.upsell-card .kick{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--navy);margin-bottom:10px}
+.upsell-card h3{font-size:19px;margin-bottom:8px}
+.upsell-card p{font-size:14.5px;color:var(--muted);line-height:1.55;margin-bottom:16px}
+
+/* Плавающие кнопки связи */
+.cta-float{position:fixed;right:14px;bottom:calc(66px + 14px + env(safe-area-inset-bottom));
+  display:flex;flex-direction:column;gap:10px;z-index:50}
+.cta-float a{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;box-shadow:var(--sh-2);background:var(--navy);color:#fff}
+.cta-float a.ig{background:#fff;color:var(--navy);border:1px solid var(--line)}
+.cta-float svg{width:26px;height:26px}
