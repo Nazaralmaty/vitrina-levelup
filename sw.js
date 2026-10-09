@@ -20,7 +20,7 @@
  */
 /* Имя кэша со slug: все демо на одном origin, чужой кэш трогать нельзя. */
 var PREFIX = 'vitrina-levelup-';
-var VERSION = PREFIX + '1791580729';
+var VERSION = PREFIX + '1791581038';
 
 /* Что имеет смысл положить заранее: без этого набора приложение не
    нарисует ни одного экрана. */
@@ -72,7 +72,8 @@ function fromCacheFirst(req) {
 }
 
 function fromNetworkFirst(req) {
-  return fetch(req).then(function (res) {
+  /* no-cache: Pages отдаёт max-age=600, без этого «сеть сначала» читала бы 10-минутный HTTP-кэш */
+  return fetch(req, { cache: 'no-cache' }).then(function (res) {
     if (res && res.ok) { var copy = res.clone(); caches.open(VERSION).then(function (c) { c.put(req, copy); }); }
     return res;
   }).catch(function () {

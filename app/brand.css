@@ -56,7 +56,7 @@
   border-radius:999px;padding:6px 12px}
 
 /* Одна кнопка связи: пилюля над таб-баром, не перекрывает шеврон карточек */
-.cta-float{position:fixed;left:50%;transform:translateX(-50%);
+.cta-float{position:fixed;right:max(14px,calc(50% - 226px));
   bottom:calc(66px + 12px + env(safe-area-inset-bottom));z-index:50}
 .cta-float a{display:flex;align-items:center;gap:8px;height:44px;padding:0 18px;border-radius:999px;
   background:var(--navy);color:#fff;font-weight:800;font-size:14px;text-decoration:none;
